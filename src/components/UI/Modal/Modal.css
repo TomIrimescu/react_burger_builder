@@ -10,6 +10,13 @@
   top: 30%;
   box-sizing: border-box;
   transition: all 0.3s ease-out;
+  text-align: center;
+}
+
+.Modal ul {
+  list-style-type: none;
+  text-align: right;
+  margin-right: 40%;
 }
 
 @media (min-width: 600px) {
