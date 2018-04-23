@@ -158,7 +158,9 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
-        <Modal spinner={this.state.loading} show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+        <Modal spinner={this.state.loading}
+               show={this.state.purchasing}
+               modalClosed={this.purchaseCancelHandler}>
           {orderSummary}
         </Modal>
         {burger}
