@@ -13,6 +13,18 @@
   text-align: center;
 }
 
+.ModalSpinner {
+  position: fixed;
+  z-index: 500;
+  background-color: transparent;
+  width: 70%;
+  padding: 16px;
+  left: 15%;
+  top: 30%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
 .Modal ul {
   list-style-type: none;
   text-align: right;
