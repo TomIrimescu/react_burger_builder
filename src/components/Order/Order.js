@@ -6,12 +6,12 @@ const order = (props) => {
   const ingredients = [];
   
   for ( let ingredientName in props.ingredients ) {
-    ingredients.push(
-      {
-        name: ingredientName,
-        amount: props.ingredients[ingredientName]
-      }
-    );
+      ingredients.push(
+        {
+          name: ingredientName,
+          amount: props.ingredients[ingredientName] // get object values with array-like syntax
+        }
+      );
   }
   
   const ingredientOutput = ingredients.map(ig => {
