@@ -8,14 +8,59 @@ import Input from "../../../components/UI/Input/Input";
 import classes from "./ContactData.css";
 
 class ContactData extends Component {
-  state ={
-    name: "",
-    email: "",
-    address: {
-      street: "",
-      city: "",
-      zipCode: "",
-      country: ""
+  state = {
+    orderForm: {
+      name: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Your Name"
+        },
+        value: ""
+      },
+      street: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Your Street Address"
+        },
+        value: ""
+      },
+      city: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Your City"
+        },
+        value: ""
+      },
+      zipcode: {
+        elementType: "input",
+        elementConfig: {
+          type: "text",
+          placeholder: "Your Zip Code"
+        },
+        value: ""
+      },
+      email: {
+        elementType: "input",
+        elementConfig: {
+          type: "email",
+          placeholder: "Your Email"
+        },
+        value: ""
+      },
+      deliveryMethod: {
+        elementType: "select",
+        elementConfig: {
+          options: [
+            {value: "select a method", displayValue: "Select a Method"},
+            {value: "delivery", displayValue: "Delivery"},
+            {value: "pickup", displayValue: "Pickup"},
+          ]
+        },
+        value: ""
+      }
     },
     loading: false
   };
@@ -24,19 +69,15 @@ class ContactData extends Component {
     event.preventDefault();
     // console.log(this.props.ingredients);
     this.setState({loading: true});
+    const formData = {};
+    for (let formElementIdentifier in this.state.orderForm) {
+      formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
+    }
+
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
-      customer: {
-        name: "Tom Irimescu",
-        address: {
-          street: "264 Phillips",
-          city: "Clawson",
-          zipCode: "48017"
-        },
-        email: "test@test.com"
-      },
-      deliveryMethod: "fastest"
+      orderData: formData
     };
   
     axios.post("/orders.json", order)
@@ -49,15 +90,38 @@ class ContactData extends Component {
     });
   };
   
+  inputChangedHandler = (event, inputIdentifier) => {
+    const updatedOrderForm = {
+      ...this.state.orderForm
+    };
+    const updatedFormElement = {
+      ...updatedOrderForm[inputIdentifier]
+    };
+    updatedFormElement.value = event.target.value;
+    updatedOrderForm[inputIdentifier] = updatedFormElement;
+    this.setState({orderForm: updatedOrderForm});
+  };
+  
   render() {
+    const formElementsArray = [];
+    for (let key in this.state.orderForm) {
+      formElementsArray.push({
+        id: key,
+        config: this.state.orderForm[key]
+      })
+    }
+    
     let form = (
-      <form>
-        <Input inputtype="input" type="text" name="name" placeholder="Your Name" />
-        <Input inputtype="input" type="email" name="email" placeholder="Your Email" />
-        <Input inputtype="input" type="text" name="street" placeholder="Your Street Address" />
-        <Input inputtype="input" type="text" name="city" placeholder="Your City" />
-        <Input inputtype="input" type="text" name="zipcode" placeholder="Your Zip Code" />
-        <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
+      <form onSubmit={this.orderHandler}>
+        {formElementsArray.map(formElement => (
+          <Input
+            key={formElement.id}
+            elementType={formElement.config.elementType}
+            elementConfig={formElement.config.elementConfig}
+            value={formElement.config.value}
+            changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+        ))}
+        <Button btnType="Success" >ORDER</Button>
       </form>
     );
     if (this.state.loading) {
