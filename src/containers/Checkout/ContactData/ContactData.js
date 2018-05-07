@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-
-import Button from "../../../components/UI/Button/Button";
-import classes from "./ContactData.css";
 import axios from "../../../axios-orders";
+
 import Spinner from "../../../components/UI/Spinner/Spinner";
+import Button from "../../../components/UI/Button/Button";
+import Input from "../../../components/UI/Input/Input";
+
+import classes from "./ContactData.css";
 
 class ContactData extends Component {
   state ={
@@ -30,8 +32,7 @@ class ContactData extends Component {
         address: {
           street: "264 Phillips",
           city: "Clawson",
-          zipCode: "48017",
-          country: "United States"
+          zipCode: "48017"
         },
         email: "test@test.com"
       },
@@ -51,12 +52,11 @@ class ContactData extends Component {
   render() {
     let form = (
       <form>
-        <input className={classes.Input} type="text" name="name" placeholder="Your Name" />
-        <input className={classes.Input} type="email" name="email" placeholder="Your Email" />
-        <input className={classes.Input} type="text" name="street" placeholder="Your Street Address" />
-        <input className={classes.Input} type="text" name="city" placeholder="Your City" />
-        <input className={classes.Input} type="text" name="zipcode" placeholder="Your Zip Code" />
-        <input className={classes.Input} type="text" name="country" placeholder="Your Country" />
+        <Input inputtype="input" type="text" name="name" placeholder="Your Name" />
+        <Input inputtype="input" type="email" name="email" placeholder="Your Email" />
+        <Input inputtype="input" type="text" name="street" placeholder="Your Street Address" />
+        <Input inputtype="input" type="text" name="city" placeholder="Your City" />
+        <Input inputtype="input" type="text" name="zipcode" placeholder="Your Zip Code" />
         <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
       </form>
     );
