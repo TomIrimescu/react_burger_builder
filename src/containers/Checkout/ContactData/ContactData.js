@@ -16,6 +16,7 @@ class ContactData extends Component {
           type: "text",
           placeholder: "Your Name"
         },
+        label: "Name",
         value: ""
       },
       street: {
@@ -24,6 +25,7 @@ class ContactData extends Component {
           type: "text",
           placeholder: "Your Street Address"
         },
+        label: "Street",
         value: ""
       },
       city: {
@@ -32,6 +34,7 @@ class ContactData extends Component {
           type: "text",
           placeholder: "Your City"
         },
+        label: "City",
         value: ""
       },
       zipcode: {
@@ -40,6 +43,7 @@ class ContactData extends Component {
           type: "text",
           placeholder: "Your Zip Code"
         },
+        label: "Zip Code",
         value: ""
       },
       email: {
@@ -48,6 +52,7 @@ class ContactData extends Component {
           type: "email",
           placeholder: "Your Email"
         },
+        label: "Email",
         value: ""
       },
       deliveryMethod: {
@@ -59,6 +64,7 @@ class ContactData extends Component {
             {value: "pickup", displayValue: "Pickup"},
           ]
         },
+        label: "Delivery Method",
         value: ""
       }
     },
@@ -107,7 +113,8 @@ class ContactData extends Component {
     for (let key in this.state.orderForm) {
       formElementsArray.push({
         id: key,
-        config: this.state.orderForm[key]
+        config: this.state.orderForm[key],
+        label: this.state.orderForm[key].label
       })
     }
     
@@ -115,6 +122,7 @@ class ContactData extends Component {
       <form onSubmit={this.orderHandler}>
         {formElementsArray.map(formElement => (
           <Input
+            label={formElement.label}
             key={formElement.id}
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
