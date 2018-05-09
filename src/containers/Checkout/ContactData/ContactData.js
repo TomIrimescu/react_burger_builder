@@ -86,18 +86,17 @@ class ContactData extends Component {
         elementType: "select",
         elementConfig: {
           options: [
-            {value: "select a method", displayValue: "Select a Method"},
-            {value: "delivery", displayValue: "Delivery"},
-            {value: "pickup", displayValue: "Pickup"},
+            {value: "delivery", displayValue: "Personal Delivery"},
+            {value: "drone", displayValue: "Drone Delivery"},
           ]
         },
         label: "Delivery Method",
-        value: "",
-        validation: {
-          required: false
-        }
+        value: "drone",
+        validation: {},
+        valid: true
       }
     },
+    formIsValid: false,
     loading: false
   };
   
@@ -155,10 +154,14 @@ class ContactData extends Component {
     updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
     updatedFormElement.touched = true;
     updatedOrderForm[inputIdentifier] = updatedFormElement;
-    console.log(updatedFormElement);
-    this.setState({orderForm: updatedOrderForm});
+    // console.log(updatedFormElement);
+    let formIsValid = true;
+    for (let inputIdentifier in updatedOrderForm) {
+      formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+    }
+    this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
   };
-  
+
   render() {
     const formElementsArray = [];
     for (let key in this.state.orderForm) {
@@ -183,12 +186,16 @@ class ContactData extends Component {
             touched={formElement.config.touched}
             changed={(event) => this.inputChangedHandler(event, formElement.id)} />
         ))}
-        <Button btnType="Success" >ORDER</Button>
+        <Button
+          btnType="Success"
+          disabled={!this.state.formIsValid || Object.keys(this.props.ingredients).length === 0}
+        >ORDER</Button>
       </form>
     );
     if (this.state.loading) {
       form = <Spinner />;
     }
+
     return (
       <div className={classes.ContactData}>
         <h4>Enter your Contact Data</h4>

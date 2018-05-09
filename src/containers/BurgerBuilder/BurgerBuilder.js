@@ -112,7 +112,7 @@ class BurgerBuilder extends Component {
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0
     }
-    console.log(disabledInfo);
+    // console.log(disabledInfo);
     // {lettuce: true, bacon: false, cheese; true, meat: false}
     
     let orderSummary = null;
