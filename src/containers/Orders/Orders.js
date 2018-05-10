@@ -1,8 +1,11 @@
 import React, { Component } from "react";
+import {NavLink} from "react-router-dom";
 
 import Order from "../../components/Order/Order";
 import axios from "../../axios-orders";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import classes from "./Orders.css";
+
 
 
 class Orders extends Component {
@@ -29,14 +32,29 @@ class Orders extends Component {
   }
   
   render() {
+    
+    let order = (
+      this.state.orders.map(order => (
+        <Order
+          key={order.id}
+          ingredients={order.ingredients}
+          price={+order.price} />
+      ))
+    );
+    
+    if (order.length === 0) {
+      order = (
+        <div style={{textAlign: "center", marginTop: "100px"}}>
+          <NavLink
+            className={classes.OrdersLink}
+            to="/">Build a Burger!</NavLink>
+        </div>
+      );
+    }
+    
     return (
       <div>
-        {this.state.orders.map(order => (
-          <Order
-            key={order.id}
-            ingredients={order.ingredients}
-            price={+order.price} />
-        ))}
+        {order}
       </div>
     );
   }
