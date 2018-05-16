@@ -12,10 +12,6 @@ import axios from "../../axios-orders";
 import * as actionTypes from "../../store/actions";
 
 class BurgerBuilder extends Component {
-  // constructor(props) {
-  //     super(props);
-  //     this.state = {...}
-  // }
   state = {
     purchasing: false,
     loading: false,
@@ -23,7 +19,7 @@ class BurgerBuilder extends Component {
   };
   
   componentDidMount () {
-    console.log(this.props.ings);
+    this.props.onResetIngredients();
 
     // axios.get("https://react-burger-builder-73542.firebaseio.com/ingredients.json")
     //   .then(response => {
@@ -118,7 +114,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onIngredientAdded: (ingName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingName}),
-        onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName})
+        onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName}),
+        onResetIngredients: () => dispatch({type: actionTypes.RESET_INGREDIENTS}),
     }
 };
 
