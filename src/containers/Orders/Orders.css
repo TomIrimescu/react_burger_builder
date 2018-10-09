@@ -1,0 +1,12 @@
+.OrdersLink {
+  outline: none;
+  cursor: pointer;
+  color: #966909;
+  font-family: inherit;
+  font-size: 1.4em;
+  text-decoration: none;
+}
+
+.OrdersLink:hover, .OrderButton:active {
+  color: #40a4c8;
+}
